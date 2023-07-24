@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>PICORP TRAINING</h1>
+
+    <button id="senarai-btn" onclick="get_senarai()">Dapat Senarai Sekarang</button>
+
+    <ul id="senarai">
+
+        
+    </ul>
+
+    <script>
+
+        function get_senarai(){
+            fetch('/fetch-demo.php')
+            .then(response => response.json() )
+            .then(data => {
+                console.log(data);
+
+                data.forEach(element => {
+                    
+                    document.getElementById('senarai').innerHTML += '<li>'+ element.nama +'</li>';
+
+                });
+
+            });
+        }
+
+
+    </script>
+
+</body>
+</html>

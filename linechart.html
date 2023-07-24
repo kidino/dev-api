@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <div id="chart_div"></div>
+
+
+  <script>
+
+google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+  var data = new google.visualization.DataTable();
+  data.addColumn('datetime', 'Time');
+  data.addColumn('number', 'Value');
+
+  var options = {
+    title: 'Real-time Data Chart',
+    hAxis: {
+        title: 'Time',
+      format: 'HH:mm:ss',
+    },
+    vAxis: {
+        title: 'Value',
+    },
+    legend: {
+      position: 'none',
+    },
+    animation: {
+      duration: 300, // Set the animation duration in milliseconds (1 second in this case)
+    },
+   };
+
+  var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+  chart.draw(data, options);
+
+  // Function to fetch data and update the chart
+  function fetchDataAndUpdateChart() {
+    $.ajax({
+      url: '/continous.php', // Replace this with the actual URL to fetch your data
+      dataType: 'json',
+      success: function (jsonData) {
+        // Assuming your JSON data is in the format { "time": "2023-07-19T12:34:56", "value": 123 }
+        data.addRow([new Date(jsonData.time), jsonData.value]);
+
+        if (data.getNumberOfRows() > 20) {
+          data.removeRow(0);
+        }
+
+        chart.draw(data, options);
+      },
+      complete: function () {
+        // Fetch data every 1 second
+        setTimeout(fetchDataAndUpdateChart, 1000);
+      },
+    });
+  }
+
+  // Initial call to start fetching data and updating the chart
+  fetchDataAndUpdateChart();
+}
+
+  </script>
+</body>
+</html>

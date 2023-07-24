@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #current-value { float: left; padding: 15px; border: 1px solid #ccc; border-radius: 10px; margin: 10px; }
+    #chart_div { float: left; border: 1px solid #ccc; margin: 10px }
+  </style>
+
+  <!-- Load the Google Charts API -->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script type="text/javascript">
+    // define global variables for easy access
+    var data, chart, options;
+    var maxrows = 20;
+
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    // create the drawChart function for Google Chart callback
+    function drawChart() {
+      // Create the data table.
+      data = new google.visualization.DataTable();
+      data.addColumn('string', 'Time');
+      data.addColumn('number', 'Value');
+      data.addColumn({ type: 'string', role: 'style' });
+
+      // Set chart options.
+      options = {
+        title: 'Realtime Horizontal Bar Chart',
+        legend: { position: 'none' },
+        seriesType: 'bars', // Use bars for the series
+        series: { 0: { targetAxisIndex: 0 } }, // Target the first axis (horizontal)
+        vAxis: { 
+            title: 'Category', 
+            titleTextStyle: { italic: false },
+            viewWindow:{
+                max:10000,
+                min:0
+              }
+        }, 
+        animation:{
+            duration: 400,
+        },
+      };
+
+      // add empty datatable for initial state
+      for(var x = 0; x < maxrows; x++) {
+          data.addRow([null, null, null]);
+      }
+
+      // Instantiate and draw the chart.
+      chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+      fetchDataAndUpdateChart();
+
+    }
+
+function fetchDataAndUpdateChart() {
+  fetch('/realtime-color.php') // Fetch data from external source
+    .then((response) => response.json())
+    .then((jsonData) => {
+      const time = new Date(jsonData.time).toLocaleTimeString();
+      const value = jsonData.value;
+      const color = jsonData.color;
+
+      // Add the new data points to the data array (transposed)
+      data.addRow([time, value, color]);
+
+      // Remove older data points if the array exceeds the maximum limit
+      if (data.getNumberOfRows() > maxrows) {
+        data.removeRow(0);
+      }
+
+      chart.draw(data, options);
+      document.getElementById('current-value').innerHTML = jsonData.value;
+    })
+    .catch((error) => {
+      // Handle error if needed
+      console.error('Error fetching data:', error);
+    })
+    .finally(() => {
+      // Fetch new data every 1 second
+      setTimeout(fetchDataAndUpdateChart, 2000);
+    });
+}
+  </script>
+</head>
+<body>
+    <h1 id="current-value"></h1>
+  <!-- Display the chart -->
+  <div id="chart_div" style="height: 400px; width: 90vw;"></div>
+</body>
+</html>
