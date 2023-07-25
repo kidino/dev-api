@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>picorp dashboard</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.2/css/theme.bootstrap_4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="assets/css/Ludens---Dark-Mode-Admin-Dashboard.css">
+</head>
+
+<body>
+    <div class="container-fluid" style="background: #cf3a3a;">
+        <h3 class="text-center text-light p-3">Heading</h3>
+    </div>
+    <div class="container my-5">
+        <div class="row gy-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Channels Data</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Water Tank</th>
+                                    <th>Fertigation Tank</th>
+                                    <th>Soil Temperature</th>
+                                    <th>Soil Humidity</th>
+                                    <th>Soil PH</th>
+                                    <th>Soil EC</th>
+                                    <th>Soil Moisture</th>
+                                    <th>Outdoor Temperature</th>
+                                    <th>Outdoor Humidity</th>
+                                    <th>Timestamp</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Cell 1</td>
+                                    <td>Cell 2</td>
+                                    <td>Cell 2</td>
+                                    <td>Cell 2</td>
+                                    <td>Cell 2</td>
+                                    <td>Cell 2</td>
+                                    <td>Cell 2</td>
+                                    <td>Cell 2</td>
+                                    <td>Cell 2</td>
+                                    <td>Cell 2</td>
+                                    <td>Cell 2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <h3>Tank Level</h3>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Water Tank</h5>
+                    </div>
+                    <div class="card-body d-xl-flex justify-content-xl-center align-items-xl-center">
+                        <div id="gauge1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Fertigation Tank</h5>
+                    </div>
+                    <div class="card-body d-xl-flex justify-content-xl-center align-items-xl-center">
+                        <div id="gauge2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <h3>Outdoor</h3>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Temperature</h5>
+                    </div>
+                    <div class="card-body d-xl-flex justify-content-xl-center align-items-xl-center">
+                        <div id="gauge3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Humidity</h5>
+                    </div>
+                    <div class="card-body d-xl-flex justify-content-xl-center align-items-xl-center">
+                        <div id="gauge4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+
+</html>
